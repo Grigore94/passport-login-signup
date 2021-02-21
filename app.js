@@ -1,7 +1,14 @@
 const express = require("express");
 const expressLayouts =  require("express-ejs-layouts");
+const mongoose = require("mongoose");
 
 const app = express();
+//dbconfig
+const db = require("./config/keys").MongoURI;
+//connect mongo
+mongoose.connect(db, { useNewUrlParser: true})
+.then(() => console.log("MongoDb Connected"))
+.catch(err => console.log(err) );
 
 //ejs
 app.use(expressLayouts);
