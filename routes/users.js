@@ -23,6 +23,17 @@ router.post("/register",( req, res) => {
     if(password.lenght < 6) {
         err.push({ msg: "Your password must be at least 6 carachters"});
     }
+    if(err.length > 0 ){
+res.render("register", {
+    err,
+    name,
+    email,
+    password,
+    password2
+})
+    }else {
+        res.send("pass")
+    }
 });
 
 module.exports = router;
