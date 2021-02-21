@@ -17,19 +17,19 @@ router.post("/register",( req, res) => {
 
     //required fields check
     if(!name || !email || !password || !password2 ) {
-        err.push({msg: "Fill in all fields"});
+        error.push({msg: "Fill in all fields"});
     }
     //password match check
     if(password != password2 ) {
-        err.push({ msg: "Password do not match"});
+        error.push({ msg: "Password do not match"});
     }
     //password lenght check
     if(password.lenght < 6) {
-        err.push({ msg: "Your password must be at least 6 carachters"});
+        error.push({ msg: "Your password must be at least 6 carachters"});
     }
-    if(err.length > 0 ){
+    if(error.length > 0 ){
 res.render("register", {
-    err,
+    error,
     name,
     email,
     password,
@@ -40,9 +40,9 @@ res.render("register", {
            User.findOne({ email: email })
            .then(user => {
                if(user) {
-                   err.push({ msg: "Email is already registered" });
+                   error.push({ msg: "Email is already registered" });
                 res.render("register", {
-                    err,
+                    error,
                     name,
                     email,
                     password,
@@ -64,10 +64,11 @@ newUser.password = hash;
 //save user
 newUser.save()
 .then(user => {
-    res.redirect("./login");
+    req.flash("success_msg", "You are now registered")
+    res.redirect("/users/login");
 })
 .catch(err => console.log(err))
-}))
+}));
     }
 });
 
