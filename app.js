@@ -1,9 +1,10 @@
 const express = require("express");
 const expressLayouts =  require("express-ejs-layouts");
 const mongoose = require("mongoose");
+const passport = require("passport");
 const flash = require("connect-flash");
 const session = require("express-session");
-const passport = require("passport");
+
 
 const app = express();
 
@@ -12,7 +13,6 @@ require("./config/passport")(passport);
 
 //dbconfig
 const db = require("./config/keys").mongoURI;
-const passport = require("./config/passport");
 
 //connect mongo
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true})
@@ -49,8 +49,8 @@ app.use((req, res, next) => {
 })
 
 //routes
-app.use("/", require("./routes/index"));
-app.use("/users", require("./routes/users"));
+app.use("/", require("./routes/index.js"));
+app.use("/users", require("./routes/users.js"));
 
 const PORT = process.env.PORT || 5000;
 

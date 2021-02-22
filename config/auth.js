@@ -4,6 +4,12 @@ module.exports = {
             return next();
         }
         req.flash("error_msg", "Please log in to view the dashbord");
-        req.redirect("/users.login")
-    }
+        res.redirect("/users/login")
+    },
+    forwardAuthenticated: function(req, res, next) {
+        if (!req.isAuthenticated()) {
+          return next();
+        }
+        res.redirect('/dashboard');      
+      }
 }
